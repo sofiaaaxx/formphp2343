@@ -1,22 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Formulario de Datos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario con cálculo</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  label { display: block; margin-top: 10px; }
+  #resultado { margin-top: 20px; font-weight: bold; }
+</style>
 </head>
 <body>
-    <h2>Ingrese sus datos</h2>
-    <form action="procesar.php" method="post">
-        <label>Nombre:</label>
-        <input type="text" name="nombre" required><br><br>
 
-        <label>Curso de formación:</label>
-        <input type="text" name="curso" required><br><br>
+<h2>Ingrese sus datos</h2>
 
-        <label>Número:</label>
-        <input type="number" name="numero" required><br><br>
+<form id="miFormulario">
+  <label>Nombre:
+    <input type="text" id="nombre" required>
+  </label>
 
-        <input type="submit" value="Enviar">
-    </form>
+  <label>Curso de formación:
+    <input type="text" id="curso" required>
+  </label>
+
+  <label>Número:
+    <input type="number" id="numero" required>
+  </label>
+
+  <button type="submit">Enviar</button>
+</form>
+
+<div id="resultado"></div>
+
+<script>
+document.getElementById('miFormulario').addEventListener('submit', function(e){
+    e.preventDefault(); // evita recargar la página
+
+    const nombre = document.getElementById('nombre').value;
+    const curso  = document.getElementById('curso').value;
+    const numero = parseFloat(document.getElementById('numero').value);
+
+    const cubo = numero ** 3;
+
+    let mensaje = `
+        <p>Nombre: ${nombre}</p>
+        <p>Curso de formación: ${curso}</p>
+        <p>El cubo del número digitado es: ${cubo}</p>
+    `;
+
+    if (cubo > 100) {
+        mensaje += `<p style="color:green;">Eres muy afortunado</p>`;
+    }
+
+    document.getElementById('resultado').innerHTML = mensaje;
+});
+</script>
+
 </body>
 </html>
+
